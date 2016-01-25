@@ -51,6 +51,16 @@ plot(names(stepsByTime), stepsByTime, type = "l",
      xlab = "Time Interval (5 min)", ylab = "Number of Steps")
 ```
 
+Visually inspecting this plot, it appears that the maximum number of steps taken for any 5-minute interval occurs around time interval number 800.
+
+We can determine this exactly:
+
+```{r}
+stepsByTime[which(stepsByTime == max(stepsByTime))]
+```
+
+which shows that the maximum number of steps (on average) occurs during time interval number 835.
+
 ## Imputing missing values
 Having calculated the mean number of steps for each time interval throughout the day, it seems reasonable to use this value (for each time interval) to impute missing values.
 
@@ -58,7 +68,7 @@ Having calculated the mean number of steps for each time interval throughout the
 for(day in levels(activity$date)) {
     ind <- which(activity$date == day)
     activity$steps[ind] <-
-        ifelse(is.na(activity$steps[ind]),stepsByTime,activity$steps[ind])
+        ifelse(is.na(activity$steps[ind]), stepsByTime, activity$steps[ind])
 }
 ```
 
